@@ -17,7 +17,7 @@
         }
 
         return(
-            <div>
+            <div className="input">
                 <input type="text"  
                 placeholder="Enter the Book" 
                 className="book"

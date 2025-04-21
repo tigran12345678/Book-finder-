@@ -1,14 +1,21 @@
 import { useState } from 'react'
 import Input from './components/Input'
-import Pagination from './components/Pagination'
-import './App.css'
+import './App.less'
 import Books from './components/Books'
+import Pagination from './components/Pagination';
 
 function App() {
  
   const [inputText, setText] = useState("");
   const [posts, setPosts] = useState([]);
   const [lightAndDarkMode, setLightAndDarkMode] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+
 
   function switchMode(){
     if(lightAndDarkMode){
@@ -25,16 +32,18 @@ function App() {
 
   return (
     <>
-      <button onClick={switchMode}>Switch to dark mode</button>
+      <button onClick={switchMode} className='switchLightingMode'>🌙</button>
+      <div className='heading'>
       <h1>Book Library</h1>
       <Input inputText={inputText} setText={setText} setPosts={setPosts}></Input>
-      <Books  posts={posts}></Books>
-      <Pagination
-        totalItems={numFound}
-        itemsPerPage={LIMIT_COUNT}
-        currentPage={page}
-        onPageChange={setPage}
+      </div>
+      <Books  posts={currentPosts}></Books>
+      <Pagination 
+        totalPosts={posts.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
       />
+   
     </>
   )
 }

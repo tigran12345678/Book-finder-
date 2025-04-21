@@ -7,7 +7,7 @@ const BASE_URL = 'https://openlibrary.org/search.json?q=';
 function Books({posts}){
 
         return(
-            <div className="tutorial">
+            <div className="books">
             
                 {posts.map((post) => {
                 const coverId = post.cover_i;
