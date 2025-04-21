@@ -35,7 +35,9 @@ function App() {
         currentPage={page}
         onPageChange={setPage}
       />
+      {console.log("tralala")}
     </>
+    //This is just a simple test for gituh
   )
 }
 
