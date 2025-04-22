@@ -31,20 +31,21 @@ function App() {
 
 
   return (
-    <>
+    <div id = "root" className={lightAndDarkMode ? 'light-mode' : 'dark-mode'}>
       <button onClick={switchMode} className='switchLightingMode'>🌙</button>
       <div className='heading'>
       <h1>Book Library</h1>
       <Input inputText={inputText} setText={setText} setPosts={setPosts}></Input>
       </div>
-      <Books  posts={currentPosts}></Books>
+      <Books  posts={currentPosts}  darkMode={!lightAndDarkMode} ></Books>
       <Pagination 
         totalPosts={posts.length}
         postsPerPage={postsPerPage}
         setCurrentPage={setCurrentPage}
       />
+
+  </div>
    
-    </>
   )
 }
 

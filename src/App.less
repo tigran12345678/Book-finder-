@@ -8,6 +8,22 @@
     padding-bottom: 500px;
     
 
+    &.light-mode{
+        background-color: grey;
+       
+    }
+
+    &.dark-mode{
+        background-color: black;
+        .books{
+            .item{
+                .bookInfo{
+                    font-color: white;
+                }
+            }
+        }
+    }
+
     .heading{
         padding-bottom: 50px;
 
@@ -41,27 +57,46 @@
     
     .books{
         display: flex;
-        width: 100%;
-        flex-flow: row wrap;
-        gap: 50px;
+        flex-wrap: wrap;
+        justify-content: flex-start;  
+        align-items: flex-start;  
+        height: 100%;
+        gap: 50px;             
 
             .item{
                 display: flex;
                 flex-flow: column;
                 font-family: sans-serif;
                 color: grey;
-                max-width: 300px;
+                width: 18%;
+                height: 25%;
+                gap: 25px;
+               
                 img{
                     width: 200px;
                     height: 300px;
+                    border-radius: 10px;
+                }
+
+                button{
+                    width: 60%;
+                }
+
+                .bookInfo{
+                    border: 1px solid;
+                    border-radius: 10px;
+                    width: 70%;
                 }
             }
         
         }
+
+        .paginationButtons{
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 10px;
+            margin-top: 100px;
+        
+        }
     }
-
-
-body{
-    background-color: #e1dcc5;
-}
 

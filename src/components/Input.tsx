@@ -1,14 +1,14 @@
     import { useState } from "react";
     import Books from "./Books";
     const BASE_URL = 'https://openlibrary.org/search.json?q=';
-    const LIMIT_COUNT = 25
+   // const LIMIT_COUNT = 25
 
     function Input({inputText, setText, setPosts}){
 
         
         function HandleInput(){
             const fetchPosts = async () => {
-                const response = await fetch(BASE_URL + inputText +'&limit=' + LIMIT_COUNT);
+                const response = await fetch(BASE_URL + inputText ) //+'&limit=' + LIMIT_COUNT);
                 const posts = await response.json();
                 console.log(posts)
                 setPosts(posts.docs);
