@@ -4,6 +4,7 @@ import './App.less'
 import Books from './components/Books'
 import Pagination from './components/Pagination';
 
+
 function App() {
  
   const [inputText, setText] = useState("");
@@ -17,18 +18,14 @@ function App() {
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
 
-  function switchMode(){
-    if(lightAndDarkMode){
-      setLightAndDarkMode(!lightAndDarkMode);
-      document.body.style.backgroundColor = "grey";
-    }
-    else{
-      setLightAndDarkMode(!lightAndDarkMode);
-      document.body.style.backgroundColor = "#e1dcc5";
-    }
-
+  function switchMode() {
+    setLightAndDarkMode(prev => {
+      const newMode = !prev;
+      document.body.classList.toggle('light-mode', newMode);
+      document.body.classList.toggle('dark-mode', !newMode);
+      return newMode;
+    });
   }
-
 
   return (
     <div id = "root" className={lightAndDarkMode ? 'light-mode' : 'dark-mode'}>
@@ -37,7 +34,7 @@ function App() {
       <h1>Book Library</h1>
       <Input inputText={inputText} setText={setText} setPosts={setPosts}></Input>
       </div>
-      <Books  posts={currentPosts}  darkMode={!lightAndDarkMode} ></Books>
+      <Books  posts={currentPosts}  ></Books>
       <Pagination 
         totalPosts={posts.length}
         postsPerPage={postsPerPage}

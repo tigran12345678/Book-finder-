@@ -1,20 +1,41 @@
-    import { useState } from "react";
+    import { useEffect, useState } from "react";
     import Books from "./Books";
     const BASE_URL = 'https://openlibrary.org/search.json?q=';
-   // const LIMIT_COUNT = 25
+    import { useDebounce } from "./Hooks";
+    // const LIMIT_COUNT = 25
 
     function Input({inputText, setText, setPosts}){
 
         
-        function HandleInput(){
-            const fetchPosts = async () => {
-                const response = await fetch(BASE_URL + inputText ) //+'&limit=' + LIMIT_COUNT);
-                const posts = await response.json();
-                console.log(posts)
-                setPosts(posts.docs);
-            };
-            fetchPosts();
-        }
+        // function HandleInput(){
+        //     const fetchPosts = async () => {
+        //         const response = await fetch(BASE_URL + inputText ) //+'&limit=' + LIMIT_COUNT);
+        //         const posts = await response.json();
+        //         console.log(posts)
+        //         setPosts(posts.docs);
+        //     };
+        //     fetchPosts();
+        // }
+     
+        
+        const debouncedSearch = useDebounce(inputText);
+        
+            useEffect(() => {
+                fetch(BASE_URL + debouncedSearch).then((res) =>{
+                    return res.json();
+                }).then((data) => {
+                    if(data.length === 0){
+                        throw new Error("found nothing")
+                    }
+                    setPosts(data.docs || []);
+                })
+                .catch((err) => {
+                 alert("Fetch error" + err);
+                    setPosts([]);
+                })
+    
+            }, [debouncedSearch])
+  
 
         return(
             <div className="input">
@@ -24,7 +45,7 @@
                 value={inputText}
                 onChange={e => setText(e.target.value)}
                 />
-                <button onClick={HandleInput}>Submit</button>
+                {/* <button onClick={HandleInput}>Submit</button> */}
             </div>
         )
 
