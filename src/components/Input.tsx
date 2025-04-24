@@ -21,18 +21,21 @@
         const debouncedSearch = useDebounce(inputText);
         
             useEffect(() => {
-                fetch(BASE_URL + debouncedSearch).then((res) =>{
-                    return res.json();
-                }).then((data) => {
-                    if(data.length === 0){
-                        throw new Error("found nothing")
-                    }
-                    setPosts(data.docs || []);
-                })
-                .catch((err) => {
-                 alert("Fetch error" + err);
-                    setPosts([]);
-                })
+                if(inputText.length !== 0){
+                    fetch(BASE_URL + debouncedSearch).then((res) =>{
+                        return res.json();
+                    }).then((data) => {
+                        if(!Array.isArray(data.docs) || data.docs.length === 0){
+                            throw new Error("found nothing")
+                        }
+                        setPosts(data.docs || []);
+                    })
+                    .catch((err) => {
+                     alert("Fetch error" + err);
+                        setPosts([]);
+                    })
+                }
+            
     
             }, [debouncedSearch])
   

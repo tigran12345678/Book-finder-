@@ -14,13 +14,11 @@ function Books({posts}){
                 {posts.map((post) => {
 
                 const authors = post.author_name || [];
-                const displayAuthors = authors.slice(0, 2).join(", ") + (authors.length > 2 ? "..." : "");
-                
-
+                const displayAuthors = authors.slice(0, 2).join("").split(" ").slice(0, 2).join(" ") + (authors.length > 2 ? "..." : "");
                 const coverId = post.cover_i;
                 const imgSrc = coverId 
                     ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg?default=false`
-                       : "/placeholder.png";
+                       : "";
                     return <div className="item">
                     <div className="bookInfo">
                     {`Books name: ${post.title}`}
