@@ -1,30 +1,45 @@
-    import { useState } from "react";
+    import { useEffect, useState } from "react";
     import Books from "./Books";
     const BASE_URL = 'https://openlibrary.org/search.json?q=';
-    const LIMIT_COUNT = 25
+    import { useDebounce } from "./Hooks";
+    // import Pagination from "./Pagination";
 
-    function Input({inputText, setText, setPosts}){
+    function Input({inputText, setText, setPosts, setCurrentPage}){
+
 
         
-        function HandleInput(){
-            const fetchPosts = async () => {
-                const response = await fetch(BASE_URL + inputText +'&limit=' + LIMIT_COUNT);
-                const posts = await response.json();
-                console.log(posts)
-                setPosts(posts.docs);
-            };
-            fetchPosts();
-        }
+        const debouncedSearch = useDebounce(inputText);
+        
+            useEffect(() => {
+                if(inputText.length !== 0){
+                    fetch(BASE_URL + debouncedSearch).then((res) =>{
+                        return res.json();
+                    }).then((data) => {
+                        if(!Array.isArray(data.docs) || data.docs.length === 0){
+                            throw new Error("found nothing")
+                        }
+                        setCurrentPage(1);
+                        setPosts(data.docs || []);
+                    })
+                    .catch((err) => {
+                     alert("Fetch error" + err);
+                        
+                    })
+                }
+            
+    
+            }, [debouncedSearch])
+  
 
         return(
-            <div>
+            <div className="input">
                 <input type="text"  
                 placeholder="Enter the Book" 
                 className="book"
                 value={inputText}
                 onChange={e => setText(e.target.value)}
                 />
-                <button onClick={HandleInput}>Submit</button>
+                {/* <button onClick={HandleInput}>Submit</button> */}
             </div>
         )
 

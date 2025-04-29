@@ -1,0 +1,162 @@
+/* App.less */
+html{
+
+  body{
+
+    #root {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  padding-bottom: 500px;
+  
+
+  // .heading {
+  //   padding-bottom: 50px;
+  //   h1{
+  //     color:black; 
+  //   }
+  // }
+
+
+  .input {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+
+    input {
+      border-radius: 25px;
+      height: 25px;
+      font-size: 15px;
+      padding-left: 10px;
+      background-color: white;
+      color: black;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      height: 25px;
+    }
+  }
+
+  .switchLightingMode {
+    border-radius: 25px;
+    align-self: flex-start;
+  }
+
+
+  .books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 50px;
+    margin-left: 150px;
+    .item {
+      display: flex;
+      flex-flow: column nowrap;
+      font-family: sans-serif;
+      color: grey;
+      width: 18%;
+      gap: 25px;
+      
+
+      img {
+        width: 250px;
+        height: 320px;
+        border-radius: 10px;
+      }
+
+      button {
+        width: 70%;
+        margin-left: 40px;
+        border-radius: 8px;
+        background-color: black;
+        color: white;
+      }
+
+      .bookInfo {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        border: 2px solid;
+        border-radius: 10px;
+        width: 100%;
+        padding-left: 10px;
+        height: 150px;
+      }
+    }
+  }
+
+
+  .paginationButtons {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+    margin-top: 100px;
+  }
+}
+
+body.light-mode {
+background-color: #e1dcc5;
+color: #000;
+}
+
+body.dark-mode {
+background-color: #222;
+color: #fff;
+}
+    }
+
+    body.light-mode {
+      background-color: white;
+      
+      .heading{
+        h1{
+          color: black;
+        }
+      }
+        .books{
+          .item{
+            margin-top: 100px;
+          }
+        }
+      .input{
+        input{
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+  
+    body.dark-mode {
+
+      background-color: #222;
+      color: #fff;
+      .heading{
+        h1{
+          color: white;
+        }
+      }
+
+      .books{
+        .item{
+          margin-top: 100px;
+          .bookInfo{
+            border-color: white;
+            color:white
+          }
+  
+          button{
+            background-color: white;
+            color: black
+          }
+        }
+      }
+    }
+
+}

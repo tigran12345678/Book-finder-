@@ -1,43 +1,54 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from './components/Input'
-import Pagination from './components/Pagination'
-import './App.css'
+import './App.less'
 import Books from './components/Books'
+import Pagination from './components/Pagination';
+
 
 function App() {
  
   const [inputText, setText] = useState("");
   const [posts, setPosts] = useState([]);
   const [lightAndDarkMode, setLightAndDarkMode] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
 
-  function switchMode(){
-    if(lightAndDarkMode){
-      setLightAndDarkMode(!lightAndDarkMode);
-      document.body.style.backgroundColor = "grey";
-    }
-    else{
-      setLightAndDarkMode(!lightAndDarkMode);
-      document.body.style.backgroundColor = "#e1dcc5";
-    }
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
+
+  function switchMode() {
+    setLightAndDarkMode(prev => {
+      const newMode = !prev;
+      document.body.classList.toggle('light-mode', newMode);
+      document.body.classList.toggle('dark-mode', !newMode);
+      return newMode;
+    });
   }
 
+  useEffect(() => {
+    document.body.classList.add(lightAndDarkMode ? "light-mode": "dark-mnide")
+  }, [lightAndDarkMode])
 
   return (
-    <>
-      <button onClick={switchMode}>Switch to dark mode</button>
+    <div id = "root">
+      <button onClick={switchMode} className='switchLightingMode'>🌙</button>
+      <div className='heading'>
       <h1>Book Library</h1>
-      <Input inputText={inputText} setText={setText} setPosts={setPosts}></Input>
-      <Books  posts={posts}></Books>
-      <Pagination
-        totalItems={numFound}
-        itemsPerPage={LIMIT_COUNT}
-        currentPage={page}
-        onPageChange={setPage}
+      <Input inputText={inputText} setText={setText} setPosts={setPosts} setCurrentPage={setCurrentPage}></Input>
+      </div>
+      <Books  posts={currentPosts}  ></Books>
+      <Pagination 
+        totalPosts={posts.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
       />
-      {console.log("tralala")}
-    </>
-    //This is just a simple test for gituh
+
+
+  </div>
+   
+
   )
 }
 
