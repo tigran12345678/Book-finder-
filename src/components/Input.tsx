@@ -2,21 +2,11 @@
     import Books from "./Books";
     const BASE_URL = 'https://openlibrary.org/search.json?q=';
     import { useDebounce } from "./Hooks";
-    // const LIMIT_COUNT = 25
+    // import Pagination from "./Pagination";
 
-    function Input({inputText, setText, setPosts}){
+    function Input({inputText, setText, setPosts, setCurrentPage}){
 
-        
-        // function HandleInput(){
-        //     const fetchPosts = async () => {
-        //         const response = await fetch(BASE_URL + inputText ) //+'&limit=' + LIMIT_COUNT);
-        //         const posts = await response.json();
-        //         console.log(posts)
-        //         setPosts(posts.docs);
-        //     };
-        //     fetchPosts();
-        // }
-     
+
         
         const debouncedSearch = useDebounce(inputText);
         
@@ -28,11 +18,12 @@
                         if(!Array.isArray(data.docs) || data.docs.length === 0){
                             throw new Error("found nothing")
                         }
+                        setCurrentPage(1);
                         setPosts(data.docs || []);
                     })
                     .catch((err) => {
                      alert("Fetch error" + err);
-                        setPosts([]);
+                        
                     })
                 }
             

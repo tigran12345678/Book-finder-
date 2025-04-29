@@ -14,49 +14,12 @@ html{
   padding-bottom: 500px;
   
 
-
-  &.light-mode {
-    background-color: #e1dcc5;
-    color: #000;
-    
-    .input{
-      input{
-        background-color: black;
-        color: white;
-      }
-    }
-  }
-
-  &.dark-mode {
-    background-color: #222;
-    color: #fff;
-    .heading{
-      h1{
-        color: white;
-      }
-    }
-    .books{
-      .item{
-
-        .bookInfo{
-          border-color: white;
-          color:white
-        }
-
-        button{
-          background-color: white;
-          color: black
-        }
-      }
-    }
-  }
-
-  .heading {
-    padding-bottom: 50px;
-    h1{
-      color:black; 
-    }
-  }
+  // .heading {
+  //   padding-bottom: 50px;
+  //   h1{
+  //     color:black; 
+  //   }
+  // }
 
 
   .input {
@@ -117,10 +80,14 @@ html{
       }
 
       .bookInfo {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
         border: 2px solid;
         border-radius: 10px;
         width: 100%;
         padding-left: 10px;
+        height: 150px;
       }
     }
   }
@@ -143,6 +110,53 @@ body.dark-mode {
 background-color: #222;
 color: #fff;
 }
+    }
+
+    body.light-mode {
+      background-color: white;
+      
+      .heading{
+        h1{
+          color: black;
+        }
+      }
+        .books{
+          .item{
+            margin-top: 100px;
+          }
+        }
+      .input{
+        input{
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+  
+    body.dark-mode {
+
+      background-color: #222;
+      color: #fff;
+      .heading{
+        h1{
+          color: white;
+        }
+      }
+
+      .books{
+        .item{
+          margin-top: 100px;
+          .bookInfo{
+            border-color: white;
+            color:white
+          }
+  
+          button{
+            background-color: white;
+            color: black
+          }
+        }
+      }
     }
 
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from './components/Input'
 import './App.less'
 import Books from './components/Books'
@@ -27,12 +27,16 @@ function App() {
     });
   }
 
+  useEffect(() => {
+    document.body.classList.add(lightAndDarkMode ? "light-mode": "dark-mnide")
+  }, [lightAndDarkMode])
+
   return (
-    <div id = "root" className={lightAndDarkMode ? 'light-mode' : 'dark-mode'}>
+    <div id = "root">
       <button onClick={switchMode} className='switchLightingMode'>🌙</button>
       <div className='heading'>
       <h1>Book Library</h1>
-      <Input inputText={inputText} setText={setText} setPosts={setPosts}></Input>
+      <Input inputText={inputText} setText={setText} setPosts={setPosts} setCurrentPage={setCurrentPage}></Input>
       </div>
       <Books  posts={currentPosts}  ></Books>
       <Pagination 
